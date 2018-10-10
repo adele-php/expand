@@ -29,14 +29,15 @@ class Curls {
         }
     }
 
-    public function run($urls){
+    public function run($opts){
         $responses = [];
-        $chunk_urls = array_chunk($urls, $this->curl_num);
-        foreach ($chunk_urls as $urls){
+        $chunk_opts = array_chunk($opts, $this->curl_num);
+        $opts = null;
+        foreach ($chunk_opts as $opts){
             $this->multi_curl_handle = curl_multi_init();
             $key = 0;
-            foreach ($urls as $url){
-                curl_setopt($this->curl_handles[$key], CURLOPT_URL, $url);
+            foreach ($opts as $opt){
+                curl_setopt_array($this->curl_handles[$key], $opt);
                 curl_multi_add_handle($this->multi_curl_handle, $this->curl_handles[$key]);
                 $key++;
             }
@@ -75,14 +76,20 @@ class Curls {
     }
 
     public static function test(){
-        $urls = [];
+        $opts = [];
         $url = 'http://testapp.zhangdu.com/test1/tt';
-        for ($i = 10; $i <= 5010; $i++){
-            $urls[] = $url . '?i=' . $i;
+        for ($i = 10; $i <= 1010; $i++){
+            $opts[] = [
+                CURLOPT_URL => $url . '?i=' . $i,
+//                CURLOPT_POST => 0,
+//                CURLOPT_POSTFIELDS => [],
+//                CURLOPT_SSL_VERIFYPEER => false,
+//                CURLOPT_SSL_VERIFYHOST => false,
+            ];
         }
-        $obj = new self(200);
+        $obj = new self(100);
         $start_time = microtime(true);
-        $data = $obj->run($urls);
+        $data = $obj->run($opts);
         var_dump($data, $obj->error_log, microtime(true) - $start_time);
     }
 
