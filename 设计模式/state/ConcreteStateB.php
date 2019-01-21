@@ -1,26 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zhang
- * Date: 18/1/25
- * Time: 下午11:33
+
+
+/*
+ * 具体状态角色
+ * 职责：
+ *  1.本状态下能做的事
+ *  2.如何过渡到其他状态
  */
+class ConcreteStateB extends State{
 
-namespace behavior\State;
-
-
-class ConcreteStateB extends State
-{
-    public function operationInterface($context)
-    {
-        // TODO: Implement operationInterface() method.
-        echo "《ConcreteStateB::OperationInterface》";
+    //本状态下必须处理的逻辑
+    public function handle1(){
+        //设置状态
+        $this->context->setCurrentState(new ConcreteStateA);
+        //过渡状态
+        $this->context->handle1();
     }
 
-    public function operationChangeState($context)
-    {
-        // TODO: Implement operationChangeState() method.
-        $this->operationInterface($context);
-        $this->ChangeState($context,new ConcreteStateA());
+    public function handle2(){
+
+
     }
+
+
+
+
 }

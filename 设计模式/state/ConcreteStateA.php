@@ -18,7 +18,7 @@ class ConcreteStateA extends State{
         //设置状态
         $this->context->setCurrentState(new ConcreteStateB);
         //过渡状态
-        $this->context->handle1();
+        $this->context->handle2();
 
     }
 

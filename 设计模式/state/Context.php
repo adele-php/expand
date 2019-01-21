@@ -10,21 +10,21 @@
  * 约束：
  *  1.具有状态抽象角色定义的所有行为，具体执行使用行为委托
  */
-class Context{
-    public $current_state;
+class Context {
+    private $current_state;
 
-    public function setCurrentState(State $state){
+    public static $STATE1;
+    public static $STATE2;
+    public static $STATE3;
+
+    public function setCurrentState(State $state) {
         $this->current_state = $state;
     }
+
     //行为委托
-    public function handle1()
-    {
+    public function handle1() {
         $this->current_state->handle1();
     }
-    //行为委托
-    public function handle2()
-    {
-        $this->current_state->handle2();
-    }
+
 
 }
