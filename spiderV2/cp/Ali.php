@@ -8,10 +8,6 @@ use app\models\TmpBook;
 use app\models\TmpChapter;
 
 class Ali extends SpiderAbstract {
-    const CPID = '10043';
-    const CPKEY = '5b630bf09799de7169581e040178bcaa';
-    const SECRETKEY = 'zhangdu520fwefew534266!';
-    const BASE_URL = 'http://ognv1.shuqireader.com/cpapi/cp/';
 
     public function init() {
         $this->source = Book::SOURCE_ALI;
@@ -221,23 +217,6 @@ class Ali extends SpiderAbstract {
 
     }
 
-
-    /*
-     * 加密算法
-     */
-    private static function makeSign($param) {
-        $param['timestamp'] = time();
-        $data = [];
-        ksort($param);
-        foreach ($param as $k => $v) {
-            $data[] = $k . '=' . $v;
-        }
-        $str = implode('', $data);
-        $str .= self::CPKEY;
-        $param['sign'] = md5($str);
-
-        return http_build_query($param);
-    }
 
     private function checkResult($data) {
         $data = json_decode($data, true);
